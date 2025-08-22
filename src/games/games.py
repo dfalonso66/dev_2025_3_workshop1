@@ -36,7 +36,12 @@ class Games:
         Returns:
             str: "correcto", "muy alto" o "muy bajo"
         """
-        pass
+        if intento == numero_secreto:
+            return "correcto"
+        elif intento > numero_secreto:
+            return "muy alto"
+        else:
+            return "muy bajo"
     
     def ta_te_ti_ganador(self, tablero):
         """
@@ -53,7 +58,19 @@ class Games:
              ["O", "O", " "],
              [" ", " ", " "]] -> "X"
         """
-        pass
+        for i in range(3):
+            if tablero[i][0] == tablero[i][1] == tablero[i][2] != " ":
+                return tablero[i][0]
+            if tablero[0][i] == tablero[1][i] == tablero[2][i] != " ":
+                return tablero[0][i]
+        if tablero[0][0] == tablero[1][1] == tablero[2][2] != " ":
+            return tablero[0][0]
+        if tablero[0][2] == tablero[1][1] == tablero[2][0] != " ":
+            return tablero[0][2]
+        for fila in tablero:
+            if " " in fila:
+                return "continua"
+        return "empate"
     
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         """
@@ -70,7 +87,9 @@ class Games:
             generar_combinacion_mastermind(4, ["rojo", "azul", "verde"]) 
             -> ["rojo", "azul", "rojo", "verde"]
         """
-        pass
+        import random
+        return [random.choice(colores_disponibles) for _ in range(longitud)]
+
     
     def validar_movimiento_torre_ajedrez(self, desde_fila, desde_col, hasta_fila, hasta_col, tablero):
         """
