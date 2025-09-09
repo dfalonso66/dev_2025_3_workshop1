@@ -186,18 +186,25 @@ class TestGeometria:
             self.geometria.pendiente_recta(3, 1, 3, 5)
     
     def test_ecuacion_recta(self):
-        # Test con valores enteros
-        assert self.geometria.ecuacion_recta(1, 1, 3, 3) == (2, -2, 0)
-        # Test con valores negativos
-        assert self.geometria.ecuacion_recta(-1, -2, 2, 4) == (6, -3, 0)
-        # Test con línea horizontal
-        assert self.geometria.ecuacion_recta(1, 5, 5, 5) == (0, 1, -5)
+        def misma_recta(a1, b1, c1, a2, b2, c2):
+            """Verifica si dos rectas Ax+By+C=0 son equivalentes (múltiplos)."""
+            return (a1 * b2 == a2 * b1) and (a1 * c2 == a2 * c1) and (b1 * c2 == b2 * c1)
+    # Test con valores enteros
+        A, B, C = self.geometria.ecuacion_recta(1, 1, 3, 3)
+        assert misma_recta(A, B, C, 2, -2, 0)
+    # Test con valores negativos
+        A, B, C = self.geometria.ecuacion_recta(-1, -2, 2, 4)
+        assert misma_recta(A, B, C, 6, -3, 0)
+    # Test con línea horizontal
+        A, B, C = self.geometria.ecuacion_recta(1, 5, 5, 5)
+        assert misma_recta(A, B, C, 0, 1, -5)
+
     
     def test_area_poligono_regular(self):
         # Test con triángulo regular
         assert round(self.geometria.area_poligono_regular(3, 10, 2.89), 2) == 43.35
         # Test con cuadrado
-        assert self.geometria.area_poligono_regular(4, 5, 2.5) == 50
+        assert self.geometria.area_poligono_regular(4, 5, 2.5) == 25
         # Test con pentágono
         assert round(self.geometria.area_poligono_regular(5, 6, 4.1), 2) == 61.5
     

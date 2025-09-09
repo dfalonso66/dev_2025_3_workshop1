@@ -362,28 +362,12 @@ class Geometria:
         Returns:
             tuple: Coeficientes (A, B, C) de la ecuación de la recta
         """
-    import math
+        if x1 == x2 and y1 == y2:
+            raise ValueError("Los puntos no pueden ser iguales, no definen una recta.")
 
-    def ecuacion_recta(self, x1, y1, x2, y2):
-        A = y2 - y1
-        B = x1 - x2
-        C = x2 * y1 - x1 * y2
-
-    # Obtener MCD de los coeficientes para simplificarlos
-        def mcd(a, b, c):
-            return math.gcd(math.gcd(abs(a), abs(b)), abs(c))
-
-        divisor = mcd(A, B, C)
-        if divisor != 0:
-            A //= divisor
-            B //= divisor
-            C //= divisor
-
-    # Asegurar signo estándar (A positivo si es posible, o B si A == 0)
-        if A < 0 or (A == 0 and B < 0):
-            A *= -1
-            B *= -1
-            C *= -1
+        A = y1 - y2
+        B = x2 - x1
+        C = x1 * y2 - x2 * y1
 
         return (A, B, C)
 
@@ -399,7 +383,14 @@ class Geometria:
         Returns:
             float: Área del polígono regular
         """
-        return (num_lados * lado * apotema) / 2
+        if num_lados < 3:
+            raise ValueError("Un polígono regular debe tener al menos 3 lados.")
+        if lado <= 0 or apotema <= 0:
+            raise ValueError("El lado y la apotema deben ser mayores que 0.")
+    
+        perimetro = num_lados * lado
+        area = (perimetro * apotema) / 2
+        return area
 
     
     def perimetro_poligono_regular(self, num_lados, lado):
