@@ -165,6 +165,7 @@ class Magic:
         """
         while b != 0:
             a, b = b, a % b
+            
         return abs(a)
     
     def mcm(self, a, b):
